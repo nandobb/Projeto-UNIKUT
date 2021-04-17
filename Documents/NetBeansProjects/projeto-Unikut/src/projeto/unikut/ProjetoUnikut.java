@@ -32,6 +32,10 @@ public class ProjetoUnikut {
                                 case 4:
                                     System.out.println("De volta ao Menu Inicial.");
                                     break;
+                                    
+                                case 5:
+                                    conta.Match();                            
+                                    break;
                                 default:
                                     System.out.println("Escolha inválida. Tente novamente.");
                                     break;
@@ -70,6 +74,7 @@ public class ProjetoUnikut {
         System.out.println("2-Aba amigos.");
         System.out.println("3-Aba recados.");
         System.out.println("4-Sair do conta.");
+        System.out.println("5-Aba Match");
         System.out.println("Escolha uma opção:");
     }
     

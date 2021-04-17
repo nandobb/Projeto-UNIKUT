@@ -50,7 +50,7 @@ public class Menu {
         System.out.println("Informe a senha:");
         senha = in.nextLine();
         Conta ctt = new Conta(login,senha);
-        return buscaSimples(ctt) != null;
+        return buscaSimples(ctt)!= null;
     }
     
     public void cadastrar (){
@@ -148,6 +148,61 @@ public class Menu {
         }while(op != 4);
     }
     
+    public void Match(){
+      Scanner in = new Scanner (System.in); 
+      System.out.println("Bem vindo a aba de Matches");
+      int op;
+      
+      do{
+      Conta conta;
+      Conta Usuario = new Conta(login,senha);
+      conta=buscaSimples(Usuario); // armezanando a conta do Usuario que está mexendo na rede
+      
+     System.out.println("O que deseja fazer?");
+     System.out.println("[1] Adicionar Match");
+     System.out.println("[2] Ver Status Match");
+     System.out.println("[3] Sair da Aba Match");
+     op=in.nextInt();   in.nextLine();
+     switch(op){
+         case 1:
+             
+            System.out.println("Informe o login do usuario que voce quer adicionar no Match");
+            String lgn;
+            lgn=in.nextLine();
+            Conta descartavel = new Conta(lgn); // criando uma conta apenas para inicializar com o login passado
+            Conta Armazenar= buscaSimples(descartavel); 
+            if(!usuariosCadastrados.contains(Armazenar)){
+             System.out.println("A conta não existe");
+             }
+            else{
+                if(Armazenar.getMatch().contains(conta)){// se a conta que eu quero adicionar possui a minha conta nos matchs
+                    conta.AdicionarMatch(Armazenar,"Match"); // irei usar o recurso adicionar na minha 
+                     Armazenar.AlterarStatus(Usuario);
+                    
+             }else{
+                 conta.AdicionarMatch(Armazenar," ");   
+                    
+                }
+            
+            }
+             break;
+            
+         case 2:
+           conta.ExibirMatch();
+           break;
+           
+         case 3:
+             System.out.println("Saindo da Aba matches");
+             break;
+             
+         default :
+             System.out.println("Insira um comando valido");
+     }      
+      }while(op!=3);
+        
+        
+    
+      }
     public void recados(){
         Scanner in = new Scanner (System.in);
         int op;

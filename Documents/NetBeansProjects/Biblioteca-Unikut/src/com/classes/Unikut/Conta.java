@@ -12,7 +12,8 @@ private String estadoCivil;
 private String status;
 private LinkedList<Conta> amigos;
 private LinkedList<String> recados;
-
+private LinkedList<Conta> Match;
+private String situacao;
     public Conta(String log, String senha){ 
        this.login=log;
        this.senha=senha;
@@ -20,8 +21,10 @@ private LinkedList<String> recados;
        this.amigos = new LinkedList<>();
        this.status = "pendente";
        this.recados = new LinkedList<>();
+       this.Match = new LinkedList();
+       this.situacao = "espera";
     }
-    
+
     public Conta(String log, String senha,String nome){
        this.login=log;
        this.senha=senha;
@@ -33,8 +36,23 @@ private LinkedList<String> recados;
     public Conta(String log){
         this.login = log;
         this.status = "pendente";
+        this.amigos = new LinkedList();
+        this.situacao= "espera";
+        this.Match= new LinkedList();
+       
+    }
+
+    public LinkedList<Conta> getMatch() {
+        return Match;
     }
     
+    public String getSituacao(){   
+      return this.situacao;  
+    }
+    public void setSituacao(){
+       this.situacao="Match";
+    }
+   
     
     public String getLogin() {
         return login;
@@ -184,6 +202,68 @@ private LinkedList<String> recados;
             }while(op!=7);
         }
     }
+    public void AdicionarMatch(Conta passada, String flag){
+       
+       if(this.Match.contains(passada)){
+           System.out.println("Conta ja adicionada na Aba Matches");
+       }else if(flag.equals("Match")){
+           passada.setSituacao();// mudo para Match
+            this.Match.add(passada);
+       
+       }else{
+          this.Match.add(passada);
+       }   
+    }
+            
+   public void AlterarStatus(Conta passada){
+       int cont = 0;
+          Conta Prim = Match.get(cont);
+          Conta Ult  = Match.getLast();
+          
+          while(Prim!=null){
+              
+             if(Prim.compareTo(passada)==0){
+                 Prim.setSituacao();
+                 return;
+             }else{
+
+             if(Match.indexOf(Ult)==cont){
+                 return;
+             }else{
+                Prim=Match.get(cont+1);
+             }
+             }
+          }
+       
+       
+   } 
+    
+    public void ExibirMatch(){
+        
+      if(this.Match.isEmpty()){
+         System.out.println("Nenhum Match"); 
+      }
+      else{
+          int cont = 0;
+          Conta Prim = Match.get(cont);
+          Conta Ult  = Match.getLast();
+          
+          while(Prim!=null){
+             System.out.print(Prim.getLogin());
+             System.out.print(":"+Prim.getSituacao());
+             System.out.println("");
+             
+             if(Match.indexOf(Ult)==cont){
+                 return;
+             }else{
+                Prim=Match.get(cont+1);
+             }
+          }
+      }
+        
+        
+    }
+    
     
     public void adicionaAmigos(Conta result){
         Conta conta = new Conta(login,senha);
